@@ -80,8 +80,12 @@ button:hover {
   padding: 18px;
 }
 
+.todo_item {
+  color: blue;
+}
+
 .todoIcons {
-  width: 50px;
+  width: 80px;
   display: flex;
   justify-content: space-between;
 }

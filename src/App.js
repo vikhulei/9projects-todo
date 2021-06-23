@@ -38,6 +38,10 @@ const removetodo = (id) => {
   setTodos(todos.filter(todo => todo.id !== id))
 }
 
+const donetodo = (id) => {
+  alert("Working on it")
+}
+
 const edittodo = (id) => {
   let result = todos.filter(todo => todo.id === id)
   setInputValue(result.map(val => val.text))
@@ -75,10 +79,11 @@ useEffect(() => {
         </form>
         {todos.map(todo => (
           <div key={todo.id} className="todo">
-            <p>{todo.text}</p>
+            <p className="todo_item">{todo.text}</p>
             <div className="todoIcons">
-            <i onClick={() => removetodo(todo.id)} className="fas fa-trash-alt"></i>
             <i onClick={() => edittodo(todo.id)} className="fas fa-edit"></i>
+            <i onClick={() => donetodo(todo.id)} className="far fa-check-square"></i>
+            <i onClick={() => removetodo(todo.id)} className="fas fa-trash-alt"></i>
             </div>
           </div>
         ))}
