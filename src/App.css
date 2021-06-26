@@ -81,7 +81,11 @@ button:hover {
 }
 
 .todo_item {
-  color: blue;
+  color: rgb(173, 173, 173);
+  font-style: italic;
+  text-decoration: line-through;
+  text-decoration-color: black;
+  text-decoration-thickness: 3px;
 }
 
 .todoIcons {

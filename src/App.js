@@ -10,6 +10,7 @@ const [inputValue, setInputValue] = useState("")
 const [todos, setTodos] = useState([])
 const [buttonName, setButtonName] = useState("Add")
 const [itemId, setItemId] = useState()
+const [checked, setChecked] = useState(false)
 
 const addTodo = (e) => {
   e.preventDefault()
@@ -28,7 +29,8 @@ const addTodo = (e) => {
   } else  {
     setTodos([...todos, {
     text: inputValue,
-    id: uuidv4()
+    id: uuidv4(),
+    check: false
   }])
   setInputValue("")
   }
@@ -39,7 +41,8 @@ const removetodo = (id) => {
 }
 
 const donetodo = (id) => {
-  alert("Working on it")
+  setItemId(id)
+  setChecked(true)
 }
 
 const edittodo = (id) => {
@@ -52,10 +55,19 @@ const edittodo = (id) => {
 useEffect(() => {
   if (firstRender.current) {
     firstRender.current = false
+  } else if (checked === true) {
+    let ls = JSON.parse(localStorage.getItem("Todo"))
+    ls.map(val => {
+      if(val.id===itemId) {
+       val.check=!val.check
+      }
+    })
+    setTodos(ls)
+    setChecked(false)
   } else {
     localStorage.setItem("Todo", JSON.stringify([...todos]))
   }
-}, [todos])
+}, [todos, checked])
 
 useEffect(() => {
   if (localStorage.getItem("Todo") !== null) {
@@ -79,7 +91,7 @@ useEffect(() => {
         </form>
         {todos.map(todo => (
           <div key={todo.id} className="todo">
-            <p className="todo_item">{todo.text}</p>
+            <p>{ todo.check === true ? (<p className="todo_item"> {todo.text} </p>) : (<p>{todo.text}</p>) }</p>
             <div className="todoIcons">
             <i onClick={() => edittodo(todo.id)} className="fas fa-edit"></i>
             <i onClick={() => donetodo(todo.id)} className="far fa-check-square"></i>
